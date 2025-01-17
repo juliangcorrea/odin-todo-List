@@ -1,0 +1,37 @@
+*, *::before, *::after, html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.grid-container{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: 
+        'header header'
+        'aside main'
+        'footer footer';
+    grid-template-columns: 20% auto;
+    grid-template-rows: 15% auto 5%;
+}
+
+header {
+    grid-area: header;
+    background-color: blue;
+}
+
+aside {
+    grid-area: aside;
+    background-color: red;
+}
+
+main {
+    grid-area: main;
+    background-color: green;
+}
+
+footer {
+    grid-area: footer;
+    background-color: grey;
+}
