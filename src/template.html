@@ -7,10 +7,42 @@
 </head>
 <body>
     <div class="grid-container">
-        <header></header>
-        <aside></aside>
-        <main></main>
-        <footer></footer>
+        <header>
+            <nav>
+                <div class="brand">
+                    <h1 class="title"></h1>
+                    <img src="" alt="" class="logo">
+                </div>
+                <div class="search-options">
+                    <button class="allNotes">All notes</button>
+                    <button class="priorities">Priorities</button>
+                    <button class="dateToday">Today</button>
+                    <button class="dateWeek">This week</button>
+                    <form action="" class="projectSearch">
+                        <label for="searchProject"></label>
+                        <select name="searchProject" id="searchProject">
+                            <option value="" disabled selected>--Choose a project--</option>
+                            <option value="default">Default</option>
+                        </select>
+                        <button type="submit">By project</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <aside>
+            <div class="btns-container">
+                <button class="createNote"></button>
+                <button class="deleteNote"></button>
+                <button class="createProject"></button>
+                <button class="deleteProject"></button>
+            </div>
+        </aside>
+        <main>
+            <div class="notes-container"></div>
+        </main>
+        <footer>
+            <div class="copyright"></div>
+        </footer>
     </div>
 </body>
 </html>
