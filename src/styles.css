@@ -118,7 +118,7 @@ aside {
 }
 
 .btns-container button {
-    width: 50%;
+    width: fit-content;
     margin-bottom: 30px;
     padding: 10px 15px;
     border-radius: 10px;
@@ -168,6 +168,8 @@ button:hover {
 
 .todo-card {
     display: flex;
+    min-width: 25%;
+    max-width: 40%;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
@@ -194,4 +196,20 @@ fieldset legend {
 
 .todo-card > *:last-child {
     margin-bottom: 0;
+}
+
+.checklist-TODO input {
+    margin-right: 5px;
+}
+
+.priorityLow {
+    background-color: aqua;
+}
+
+.priorityMedium {
+    background-color:chartreuse;
+}
+
+.priorityHigh {
+    background-color: firebrick;
 }
