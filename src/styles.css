@@ -222,6 +222,7 @@ dialog{
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    background-color: cadetblue;
 }
 
 #priority-dialog[open]{
@@ -254,4 +255,131 @@ dialog{
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: none;
-  }
+}
+
+#createNote-dialog{
+    top: 15%;
+    left: 16%;
+    width: 70%;
+    height: 70%;
+}
+
+#createNoteForm{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80%;
+    margin: 0;
+}
+
+.main-data, .secondary-data{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+    min-height: 40%;
+}
+
+.priority-choice{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+}
+
+.main-data > *, .secondary-data > *{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-data select{
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.checklist-choice-part1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.checklist-choice-part1 > *{
+    margin-bottom: 10px;
+}
+
+.checklist-choice-part1 > *:last-child{
+    margin: 0;
+}
+
+.checklist-choice-part1 button{
+    font-size: smaller;
+    padding: 8px;
+}
+
+.checklist-choice-part1 button:first-child{
+    background-color: greenyellow;
+}
+
+.checklist-choice-part1 button:last-child{
+    background-color:coral;
+}
+
+.secondary-data{
+    justify-content: center;
+}
+
+.secondary-data > *{
+    margin-right: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background-color: wheat;
+}
+
+thead {
+    width: 100%;
+}
+
+tbody {
+    display: block;
+    width: 100%;
+    max-height: 130px;
+    overflow-y: auto;
+}
+
+tr {
+    border: 2px solid black;
+    border-top: 0px;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+td {
+    text-align: left;
+    padding-left: 5px;
+    width: 150px;
+}
+
+th {
+    border-top: 2px solid black;
+    text-align: center;
+    padding: 10px 5px;
+}
+
+.checklist-choice-part2 {
+    width: 300px;
+    height: 150px;
+}

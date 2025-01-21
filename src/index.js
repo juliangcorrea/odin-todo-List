@@ -5,7 +5,41 @@ import btnSearch from './modules/buttons'
 
 const noteList = []
 
-const createProject = document.querySelector('.createProkject')
+const btnCreateNote = document.querySelector('.createNote')
+const createNoteDialog = document.querySelector('#createNote-dialog')
+
+function createNote() {
+    btnCreateNote.addEventListener('click', () => {
+        createNoteDialog.showModal()
+        const btnSend = createNoteDialog.querySelector('#sendNoteData')
+        const btnAddItem = createNoteDialog.querySelector('#addChecklistItem')
+        const btnDeleteItem = createNoteDialog.querySelector('#deleteChecklistItem')
+        const checklistTable = createNoteDialog.querySelector('.checklist-choice-part2')
+        const tableItems = checklistTable.querySelector('tbody')
+        btnAddItem.addEventListener('click', (e) => {
+            e.preventDefault()
+            const userInput = createNoteDialog.querySelector('#newChecklistItem').value
+            if(userInput){
+                const newRow = document.createElement('tr')
+                const newData = document.createElement('td')
+                newData.textContent = userInput
+                newRow.appendChild(newData)
+                tableItems.appendChild(newRow)
+            }
+        })
+        btnDeleteItem.addEventListener('click', (e) => {
+            e.preventDefault()
+            const allRows = tableItems.querySelectorAll('tr')
+            if(allRows.length != 0){
+                allRows[allRows.length -1].remove()
+            }
+        })
+        btnSend.addEventListener('click', () => {
+            
+            createNoteDialog.close()
+        })
+    })
+}
 
 
 
@@ -32,6 +66,7 @@ const test2 = ['tempTitle', 'tempDesc', 'Low', '19/12/1994', 'Project1', 'testin
 createTODO(...test, noteList)
 createTODO(...test2, noteList)
 btnSearch(noteList)
+createNote()
 
 
 
