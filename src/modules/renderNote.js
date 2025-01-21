@@ -9,13 +9,13 @@ function createCard(object){
     cardTemplate.querySelector('.todo-card h3').textContent = object.priority
     cardTemplate.querySelector('.todo-card h4').textContent = object.dueDate
     cardTemplate.querySelector('.todo-card h5').textContent = object.project
+    const cloneNode = cardTemplate.cloneNode(true)
     if(object.notes){
         cardTemplate.querySelector('.todo-card p').lastChild.textContent = object.notes
     } else {
-        const deleteNote = cardTemplate.querySelector('.todo-card p')
+        const deleteNote = cloneNode.querySelector('.todo-card p')
         deleteNote.remove()
     }
-    const cloneNode = cardTemplate.cloneNode(true)
     if(object.checklist.checklist.length != 0){
         const templateForm = cloneNode.querySelector('.checklist-TODO fieldset')
         object.checklist.checklist.forEach(sub_element => {
