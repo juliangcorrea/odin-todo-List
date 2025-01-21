@@ -22,10 +22,10 @@
                     <form action="" class="projectSearch">
                         <label for="searchProject"></label>
                         <select name="searchProject" id="searchProject">
-                            <option value="" disabled selected>--Select a project--</option>
+                            <option value='' disabled selected>--Select a project--</option>
                             <option value="default">Default</option>
                         </select>
-                        <button type="submit">By project</button>
+                        <button class="btnProject">By project</button>
                     </form>
                 </div>
             </nav>
@@ -48,6 +48,23 @@
             </div>
         </footer>
     </div>
+    <div class="overlay" id="overlay"></div>
+    <dialog id="priority-dialog">
+        <div class="dialog-container">
+            <h3>Choose a priority to search:</h3>
+            <form action="">
+                <label><input type="radio" name="choice" value="Low">Low</label>
+                <label><input type="radio" name="choice" value="Medium">Medium</label>
+                <label><input type="radio" name="choice" value="High">High</label>
+            </form>
+            <button id="prioritySearch">Search</button>
+        </div>
+    </dialog>
+    <dialog id="createProject-dialog">
+        <div class="dialog-container">
+            
+        </div>
+    </dialog>
     <template id="card">
         <div class="todo-card">
             <h1>Title of TODO</h1>

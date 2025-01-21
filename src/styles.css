@@ -117,7 +117,7 @@ aside {
     top: 0;
 }
 
-.btns-container button {
+.btns-container button, .dialog-container button {
     width: fit-content;
     margin-bottom: 30px;
     padding: 10px 15px;
@@ -213,3 +213,45 @@ fieldset legend {
 .priorityHigh {
     background-color: firebrick;
 }
+
+dialog{
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+#priority-dialog[open]{
+    display: flex;
+}
+
+.dialog-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-container > * {
+    margin-bottom: 30px;
+}
+
+.dialog-container > *:last-child{
+    margin-bottom: 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
