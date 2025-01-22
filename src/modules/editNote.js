@@ -46,20 +46,42 @@ function deleteCard(mainArray){
 function editCard(mainArray, projectList){
     const editCards = document.querySelectorAll('.todo-card .editCard')
     const editDialog = document.querySelector('#editNote-dialog')
+    const checklistTable = editDialog.querySelector('.checklist-choice-part2')
+    const tableItems = checklistTable.querySelector('tbody')
+    const btnAddItem = editDialog.querySelector('#addChecklistItem')
+    const btnDeleteItem = editDialog.querySelector('#deleteChecklistItem')
     editCards.forEach(element => {
         element.addEventListener('click', () => {
+            const elementToEdit = mainArray.filter(item => item.id == element.dataset.id )[0]
+            editCardInfo(elementToEdit, mainArray, projectList)
             editDialog.showModal()
         })
-        const elementToEdit = mainArray.filter(item => item.id == element.dataset.id )[0]
-        editCardInfo(elementToEdit, mainArray, projectList)
+    })
+    btnAddItem.addEventListener('click', (e) => {
+        e.preventDefault()
+        let userInput = editNoteDialog.querySelector('#newChecklistItem')
+        if(userInput.value){
+            const newRow = document.createElement('tr')
+            const newData = document.createElement('td')
+            newData.textContent = userInput.value
+            newRow.appendChild(newData)
+            tableItems.appendChild(newRow)
+        }
+        userInput.value = ""
+        userInput.textContent = ""
+    })
+    btnDeleteItem.addEventListener('click', (e) => {
+        e.preventDefault()
+        const allRows = tableItems.querySelectorAll('tr')
+        if(allRows.length != 0){
+            allRows[allRows.length -1].remove()
+        }
     })
 }
 
 function editCardInfo(object, mainArray, projectList, id){
     const editNoteDialog = document.querySelector('#editNote-dialog')
     const btnSend = editNoteDialog.querySelector('#sendEditData')
-    const btnAddItem = editNoteDialog.querySelector('#addChecklistItem')
-    const btnDeleteItem = editNoteDialog.querySelector('#deleteChecklistItem')
     const checklistTable = editNoteDialog.querySelector('.checklist-choice-part2')
     const tableItems = checklistTable.querySelector('tbody')
     const editProject = editNoteDialog.querySelector('#project-of-TODO')
@@ -84,26 +106,6 @@ function editCardInfo(object, mainArray, projectList, id){
         editRow.appendChild(editData)
         tableItems.appendChild(editRow)
     });
-    btnAddItem.addEventListener('click', (e) => {
-        e.preventDefault()
-        let userInput = editNoteDialog.querySelector('#newChecklistItem')
-        if(userInput.value){
-            const newRow = document.createElement('tr')
-            const newData = document.createElement('td')
-            newData.textContent = userInput.value
-            newRow.appendChild(newData)
-            tableItems.appendChild(newRow)
-        }
-        userInput.value = ""
-        userInput.textContent = ""
-    })
-    btnDeleteItem.addEventListener('click', (e) => {
-        e.preventDefault()
-        const allRows = tableItems.querySelectorAll('tr')
-        if(allRows.length != 0){
-            allRows[allRows.length -1].remove()
-        }
-    })
     btnSend.addEventListener('click', () => {
         const todoTitle = editNoteDialog.querySelector('.name-choice input').value
         const todoDesc = editNoteDialog.querySelector('.description-choice input').value
