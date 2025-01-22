@@ -32,7 +32,6 @@
             <div class="btns-container">
                 <button class="createNote">Create TODO</button>
                 <button class="createProject">Create Project</button>
-                <button class="deleteProject">Delete Project</button>
             </div>
         </aside>
         <main>
@@ -132,6 +131,17 @@
                 </div>
             </form>
             <button id="sendNoteData">Create Note</button>
+        </div>
+    </dialog>
+
+    <dialog id="removeProject-dialog">
+        <div class="dialog-container">
+            <h3>Remove Project</h3>
+            <form action="">
+                <label for="removeProjectList">Choose a project to remove</label>
+                <select name="removeProject" id="removeProjectList"></select>
+            </form>
+            <button id="removeProject">Remove Project</button>
         </div>
     </dialog>
 

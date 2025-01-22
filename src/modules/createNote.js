@@ -85,13 +85,20 @@ function createProject(projectList){
         createProjectDialog.showModal()
     })
     btnSend.addEventListener('click', () => {   
-        const newProject = createProjectDialog.querySelector('input').value
+        const newProject = createProjectDialog.querySelector('input')
         if(newProject){
-            projectList.push(newProject.toLowerCase())
-            updateProjectList(selectProject, projectList)
+            projectList.push(newProject.value.toLowerCase())
+            updateProjectList(selectProject, projectList, true)
+            newProject.textContent = ''
+            newProject.value = ''
             createProjectDialog.close()
         }
     })
+}
+
+function sideButtons(mainArray, projectList){
+    createNote(mainArray, projectList)
+    createProject(projectList)
 }
 
 
@@ -102,22 +109,18 @@ function formatDate(inputDate) {
     return `${day}/${month}/${year}`;
 }
 
-function updateProjectList(htmltag, projectList){
-    htmltag.innerHTML = `<option value='' disabled selected>--Select a project--</option>`
+function updateProjectList(htmltag, projectList, parameter = false){
+    if(parameter){
+        htmltag.innerHTML = `<option value='' disabled selected>--Select a project--</option>`
+    } else {
+        htmltag.innerHTML = ''
+    }
     projectList.forEach(element => {
         const newProject = document.createElement('option')
         newProject.value = element
         newProject.textContent = element
         htmltag.appendChild(newProject)
     })
-}
-
-
-/* Export Function*/
-
-function sideButtons(mainArray, projectList){
-    createNote(mainArray, projectList)
-    createProject(projectList)
 }
 
 

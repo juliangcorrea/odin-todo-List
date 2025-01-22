@@ -1,4 +1,4 @@
-import changePriorityColor from "./editNote"
+import { changePriorityColor } from "./editNote"
 
 /* Main Functions */
 

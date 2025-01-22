@@ -59,6 +59,14 @@ function searchAll(mainArray){
     })
 }
 
+function btnSearch(mainArray, projectList){
+    renderAll(mainArray)
+    searchByProject(mainArray, projectList)
+    searchByPriority(mainArray)
+    searchByDate(mainArray)
+    searchAll(mainArray)
+}
+
 
 /* Auxiliary Functions */
 
@@ -86,15 +94,5 @@ function isDateThisWeek(dateString) {
     return givenDate >= startOfWeek && givenDate <= endOfWeek
 }
 
-
-/* Export Function */
-
-function btnSearch(mainArray, projectList){
-    renderAll(mainArray)
-    searchByProject(mainArray, projectList)
-    searchByPriority(mainArray)
-    searchByDate(mainArray)
-    searchAll(mainArray)
-}
 
 export default btnSearch

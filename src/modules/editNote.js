@@ -17,4 +17,4 @@ function changePriorityColor(){
     })
 }
 
-export default changePriorityColor
+export  { changePriorityColor }
