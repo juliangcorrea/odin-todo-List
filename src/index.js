@@ -1,13 +1,12 @@
 import './styles.css'
-import createNote from './modules/createNote'
+import { sideButtons, updateProjectList } from './modules/createNote'
 import btnSearch from './modules/buttons'
 
-
 const noteList = []
+const projects = ['default']
 
+const selectProject = document.querySelector('#searchProject')
+updateProjectList(selectProject, projects)
 
-const btnDateToday = document.querySelector('.dateToday')
-const btnDateWeek = document.querySelector('.dateWeek')
-
-btnSearch(noteList)
-createNote(noteList)
+btnSearch(noteList, projects)
+sideButtons(noteList, projects)

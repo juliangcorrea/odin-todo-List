@@ -1,5 +1,7 @@
 import { renderAll } from "./renderNote"
 
+/* Main Functions */
+
 function createTODO(title, description, priority, dueDate, project,  notes, checklist, mainArray) {
     const newTODO = {
         title,
@@ -14,15 +16,7 @@ function createTODO(title, description, priority, dueDate, project,  notes, chec
     return newTODO
 }
 
-function formatDate(inputDate) {
-    const date = new Date(inputDate);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-}
-
-function createNote(mainArray) {
+function createNote(mainArray, projectList) {
     const btnCreateNote = document.querySelector('.createNote')
     const createNoteDialog = document.querySelector('#createNote-dialog')
     const btnSend = createNoteDialog.querySelector('#sendNoteData')
@@ -31,6 +25,8 @@ function createNote(mainArray) {
     const checklistTable = createNoteDialog.querySelector('.checklist-choice-part2')
     const tableItems = checklistTable.querySelector('tbody')
     btnCreateNote.addEventListener('click', () => {
+        const projectOptions = createNoteDialog.querySelector('#project-of-TODO')
+        updateProjectList(projectOptions, projectList)
         createNoteDialog.showModal()
     })
     btnAddItem.addEventListener('click', (e) => {
@@ -77,17 +73,52 @@ function createNote(mainArray) {
             createNoteDialog.querySelector('tbody').innerHTML = ""
             createNoteDialog.close()
         }
-        helper()
     })
 }
 
-function helper(){
-    const testbtn = document.querySelector('#extendCard')
-    const testtag = document.querySelector('.todo-card .wrapper')
-    testbtn.addEventListener('click', () => {
-        testtag.classList.toggle('is-open')
+function createProject(projectList){
+    const btnCreateProject = document.querySelector('.createProject')
+    const createProjectDialog = document.querySelector('#createProject-dialog')
+    const btnSend = createProjectDialog.querySelector('#createNewProject')
+    const selectProject = document.querySelector('#searchProject')
+    btnCreateProject.addEventListener('click', () => {
+        createProjectDialog.showModal()
+    })
+    btnSend.addEventListener('click', () => {   
+        const newProject = createProjectDialog.querySelector('input').value
+        if(newProject){
+            projectList.push(newProject.toLowerCase())
+            updateProjectList(selectProject, projectList)
+            createProjectDialog.close()
+        }
     })
 }
 
 
-export default createNote
+/* Auxiliary functions */
+
+function formatDate(inputDate) {
+    const [year, month, day] = inputDate.split('-');
+    return `${day}/${month}/${year}`;
+}
+
+function updateProjectList(htmltag, projectList){
+    htmltag.innerHTML = `<option value='' disabled selected>--Select a project--</option>`
+    projectList.forEach(element => {
+        const newProject = document.createElement('option')
+        newProject.value = element
+        newProject.textContent = element
+        htmltag.appendChild(newProject)
+    })
+}
+
+
+/* Export Function*/
+
+function sideButtons(mainArray, projectList){
+    createNote(mainArray, projectList)
+    createProject(projectList)
+}
+
+
+export { sideButtons, updateProjectList }

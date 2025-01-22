@@ -1,5 +1,7 @@
 import changePriorityColor from "./editNote"
 
+/* Main Functions */
+
 function createCard(object){
     const noteContainer = document.querySelector('.notes-container')
     const cardTemplate = document.getElementById('card').content
@@ -42,9 +44,7 @@ function renderByFilter(filterCategory, filterName, mainArray){
     const noteContainer = document.querySelector('.notes-container')
     noteContainer.innerHTML = ''
     const listBy = mainArray.filter(item => item[filterCategory] == filterName)
-    listBy.forEach(element => {
-        createCard(element)
-    });
+    renderAll(listBy)
 }
 
 function renderAll(mainArray){
@@ -53,6 +53,22 @@ function renderAll(mainArray){
     mainArray.forEach(element => {
         createCard(element)
     });
+    addSlider()
 }
+
+
+/* Auxiliary Functions */
+
+function addSlider(){
+    const allNotes = document.querySelectorAll('.todo-card')
+    allNotes.forEach(element => {
+        const btnExtend = element.querySelector('.extendCard')
+        const wrapper = element.querySelector('.wrapper')
+        btnExtend.addEventListener('click', () => {
+            wrapper.classList.toggle('is-open')
+        })
+    });
+}
+
 
 export {renderByFilter, renderAll}
