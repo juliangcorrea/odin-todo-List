@@ -1,8 +1,8 @@
-import { changePriorityColor } from "./editNote"
+import { changePriorityColor, addSlider, deleteCard } from "./editNote"
 
 /* Main Functions */
 
-function createCard(object){
+function createCard(object, mainArray){
     const noteContainer = document.querySelector('.notes-container')
     const cardTemplate = document.getElementById('card').content
     const fragment = document.createDocumentFragment()
@@ -12,6 +12,8 @@ function createCard(object){
     cardTemplate.querySelector('.todo-card h4').textContent = object.dueDate
     cardTemplate.querySelector('.todo-card h5').textContent = object.project
     const cloneNode = cardTemplate.cloneNode(true)
+    const btnDelete = cloneNode.querySelector('.removeCard')
+    btnDelete.dataset.id = object.id
     if(object.notes){
        cloneNode.querySelector('.todo-card .body p').lastChild.textContent = object.notes
     } else {
@@ -38,6 +40,8 @@ function createCard(object){
     fragment.appendChild(cloneNode)
     noteContainer.appendChild(fragment)
     changePriorityColor()
+    addSlider()
+    deleteCard(mainArray)
 }
 
 function renderByFilter(filterCategory, filterName, mainArray){
@@ -51,24 +55,8 @@ function renderAll(mainArray){
     const noteContainer = document.querySelector('.notes-container')
     noteContainer.innerHTML = ''
     mainArray.forEach(element => {
-        createCard(element)
-    });
-    addSlider()
-}
-
-
-/* Auxiliary Functions */
-
-function addSlider(){
-    const allNotes = document.querySelectorAll('.todo-card')
-    allNotes.forEach(element => {
-        const btnExtend = element.querySelector('.extendCard')
-        const wrapper = element.querySelector('.wrapper')
-        btnExtend.addEventListener('click', () => {
-            wrapper.classList.toggle('is-open')
-        })
+        createCard(element, mainArray)
     });
 }
-
 
 export {renderByFilter, renderAll}

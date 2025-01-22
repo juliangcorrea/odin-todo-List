@@ -17,4 +17,30 @@ function changePriorityColor(){
     })
 }
 
-export  { changePriorityColor }
+function addSlider(){
+    const allNotes = document.querySelectorAll('.todo-card')
+    allNotes.forEach(element => {
+        const btnExtend = element.querySelector('.extendCard')
+        const wrapper = element.querySelector('.wrapper')
+        btnExtend.addEventListener('click', () => {
+            wrapper.classList.toggle('is-open')
+        })
+    });
+}
+
+function deleteCard(mainArray){
+    const deleteCards = document.querySelectorAll('.todo-card .removeCard')
+    deleteCards.forEach(element => {
+        element.addEventListener('click', () => {
+            if(confirm('Are you sure you want to delete this TODO?')){
+                const elementToDelete = mainArray.filter(item => item.id == element.dataset.id )
+                const indexOfElementToDelete = mainArray.indexOf(elementToDelete)
+                mainArray.splice(indexOfElementToDelete, 1)
+                const cardToRemove = element.closest('.todo-card')
+                cardToRemove.remove()
+            }
+        })
+    })
+}
+
+export  { changePriorityColor, addSlider, deleteCard }

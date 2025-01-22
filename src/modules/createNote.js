@@ -3,6 +3,7 @@ import { renderAll } from "./renderNote"
 /* Main Functions */
 
 function createTODO(title, description, priority, dueDate, project,  notes, checklist, mainArray) {
+    const id = "id-" + Math.random().toString(36).slice(2, 11)
     const newTODO = {
         title,
         description,
@@ -10,7 +11,8 @@ function createTODO(title, description, priority, dueDate, project,  notes, chec
         priority,
         project,
         notes,
-        checklist
+        checklist,
+        id
     }
     mainArray.push(newTODO)
     return newTODO
@@ -122,6 +124,5 @@ function updateProjectList(htmltag, projectList, parameter = false){
         htmltag.appendChild(newProject)
     })
 }
-
 
 export { sideButtons, updateProjectList }
