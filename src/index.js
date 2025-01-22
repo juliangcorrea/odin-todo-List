@@ -9,6 +9,5 @@ const noteList = []
 const btnDateToday = document.querySelector('.dateToday')
 const btnDateWeek = document.querySelector('.dateWeek')
 
-
 btnSearch(noteList)
 createNote(noteList)

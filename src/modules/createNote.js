@@ -14,6 +14,14 @@ function createTODO(title, description, priority, dueDate, project,  notes, chec
     return newTODO
 }
 
+function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
 function createNote(mainArray) {
     const btnCreateNote = document.querySelector('.createNote')
     const createNoteDialog = document.querySelector('#createNote-dialog')
@@ -49,9 +57,10 @@ function createNote(mainArray) {
         const todoTitle = createNoteDialog.querySelector('.name-choice input').value
         const todoDesc = createNoteDialog.querySelector('.description-choice input').value
         const todoPriority = createNoteDialog.querySelector('.priority-choice select').value
-        const todoDueDate = createNoteDialog.querySelector('.dueDate-choice input').value
+        const tempDueDate = createNoteDialog.querySelector('.dueDate-choice input').value
+        const todoDueDate = formatDate(tempDueDate)
         const todoProject = createNoteDialog.querySelector('.project-choice select').value
-        const todoNote = createNoteDialog.querySelector('.notes-choice textarea').value
+        const todoNote = createNoteDialog.querySelector('textarea').value
         const rowData = tableItems.querySelectorAll('td')
         const rowDataCurated = []
         rowData.forEach(element => {
@@ -68,7 +77,17 @@ function createNote(mainArray) {
             createNoteDialog.querySelector('tbody').innerHTML = ""
             createNoteDialog.close()
         }
+        helper()
     })
 }
+
+function helper(){
+    const testbtn = document.querySelector('#extendCard')
+    const testtag = document.querySelector('.todo-card .wrapper')
+    testbtn.addEventListener('click', () => {
+        testtag.classList.toggle('is-open')
+    })
+}
+
 
 export default createNote

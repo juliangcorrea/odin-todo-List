@@ -18,6 +18,9 @@
     position: relative;
 }
 
+
+/* Header Section */
+
 header {
     grid-area: header;
     background-color: blue;
@@ -100,6 +103,9 @@ nav {
     fill: white;
 }
 
+
+/* Aside Section */
+
 aside {
     grid-area: aside;
     background-color: red;
@@ -130,6 +136,13 @@ aside {
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
+button:hover {
+    border: 2px solid black;
+}
+
+
+/* Main Section */
+
 main {
     grid-area: main;
     background-color: green;
@@ -143,6 +156,9 @@ main {
     align-items: flex-start;
     justify-content: flex-start;
 }
+
+
+/* Footer Section */
 
 footer {
     grid-area: footer;
@@ -162,9 +178,8 @@ footer {
     font-size: larger;
 }
 
-button:hover {
-    border: 2px solid black;
-}
+
+/* Card Section */
 
 .todo-card {
     display: flex;
@@ -190,11 +205,35 @@ fieldset legend {
     margin-bottom: 5px;
 }
 
-.todo-card > * {
+.head{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    margin-top: 0;
+    transition: margin-top 0.5s ease-out, grid-template-rows 0.5s ease-out;
+}
+
+.wrapper.is-open {
+    grid-template-rows: 1fr;
+    margin-top: 20px;
+}
+
+.inner {
+    overflow: hidden;
+}
+
+.body > *{
     margin-bottom: 20px;
 }
 
-.todo-card > *:last-child {
+.body > *:last-child {
     margin-bottom: 0;
 }
 
@@ -213,6 +252,56 @@ fieldset legend {
 .priorityHigh {
     background-color: firebrick;
 }
+
+.options{
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn{
+    border: none;
+    border-style: none;
+    background-color: transparent;
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover{
+    border: none;
+}
+
+.card-icon{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.options .icon-btn:last-child .card-icon{
+    height: 30px;
+    width: 30px;
+    fill: black;
+}
+
+.card-icon:hover, .options .icon-btn:last-child .card-icon:hover{
+    fill: white;
+}
+
+.delete{
+    fill:red;
+}
+
+.edit{
+    fill: blue;
+}
+
+
+/* Priority Dialog Section */
 
 dialog{
     top: 25%;
@@ -256,6 +345,9 @@ dialog{
     z-index: 999;
     display: none;
 }
+
+
+/* Create Note Dialog*/
 
 #createNote-dialog{
     top: 15%;

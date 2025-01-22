@@ -11,9 +11,9 @@ function createCard(object){
     cardTemplate.querySelector('.todo-card h5').textContent = object.project
     const cloneNode = cardTemplate.cloneNode(true)
     if(object.notes){
-        cardTemplate.querySelector('.todo-card p').lastChild.textContent = object.notes
+       cloneNode.querySelector('.todo-card .body p').lastChild.textContent = object.notes
     } else {
-        const deleteNote = cloneNode.querySelector('.todo-card p')
+        const deleteNote = cloneNode.querySelector('.todo-card .body p')
         deleteNote.remove()
     }
     if(object.checklist.checklist.length != 0){
