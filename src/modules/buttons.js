@@ -9,12 +9,12 @@ function searchByProject(mainArray, projectList){
         e.preventDefault()
         const projectFilter = selectedItems.options[selectedItems.selectedIndex].value
         if(projectFilter){
-            renderByFilter('project', `${projectFilter}`, mainArray)
+            renderByFilter('project', `${projectFilter}`, mainArray, projectList)
         }
     })
 }
 
-function searchByPriority(mainArray){
+function searchByPriority(mainArray, projectList){
     const btnPriority = document.querySelector('.priorities')
     const overlay = document.getElementById('overlay')
     btnPriority.addEventListener('click', () => {
@@ -26,7 +26,7 @@ function searchByPriority(mainArray){
             const selectedRadio = priority.querySelector('input[name="choice"]:checked')
             if(selectedRadio){
                 const searchFilter = selectedRadio.value
-                renderByFilter('priority', `${searchFilter}`, mainArray)
+                renderByFilter('priority', `${searchFilter}`, mainArray, projectList)
                 overlay.style.display = 'none'
                 priority.close()
             }
@@ -35,47 +35,49 @@ function searchByPriority(mainArray){
     
 }
 
-function searchByDate(mainArray){
+function searchByDate(mainArray, projectList){
     const btnsDate = document.querySelectorAll('.date')
     btnsDate.forEach(element => {
         if(element.dataset.date == 'today'){
-            const dueDate = getDate()
+            const today = new Date();
+            const dueDate = getDate(today, true)
             element.addEventListener('click', () => {
-                renderByFilter('dueDate', dueDate, mainArray)
+                renderByFilter('dueDate', dueDate, mainArray, projectList)
             })
         } else {
-            element.addEventListener('click', () =>{
-                const tempData = mainArray.filter(item => isDateThisWeek(item.dueDate) == true)
-                renderAll(tempData)
+            element.addEventListener('click', () =>{ 
+                const tempData = mainArray.filter(item => isDateThisWeek(getDate(new Date(item.dueDate))) == true)
+                renderAll(tempData, projectList)
             })
         }
     });
 }
 
-function searchAll(mainArray){
+function searchAll(mainArray, projectList){
     const btnAllNotes = document.querySelector('.allNotes')
     btnAllNotes.addEventListener('click', () => {
-        renderAll(mainArray)
+        renderAll(mainArray, projectList)
     })
 }
 
 function btnSearch(mainArray, projectList){
-    renderAll(mainArray)
     searchByProject(mainArray, projectList)
-    searchByPriority(mainArray)
-    searchByDate(mainArray)
-    searchAll(mainArray)
+    searchByPriority(mainArray, projectList)
+    searchByDate(mainArray, projectList)
+    searchAll(mainArray, projectList)
 }
 
 
 /* Auxiliary Functions */
 
-function getDate(){
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    return `${day}/${month}/${year}`;
+function getDate(dateData, inverted = false){
+    const day = String(dateData.getDate()).padStart(2, '0');
+    const month = String(dateData.getMonth() + 1).padStart(2, '0');
+    const year = dateData.getFullYear();
+    if(inverted){
+        return `${year}-${month}-${day}`
+    }
+    return `${day}/${month}/${year}`
 }
 
 function isDateThisWeek(dateString) {

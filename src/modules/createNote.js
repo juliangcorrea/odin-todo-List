@@ -1,4 +1,4 @@
-import { renderAll } from "./renderNote"
+import { renderAll, createCard } from "./renderNote"
 
 /* Main Functions */
 
@@ -19,6 +19,7 @@ function createTODO(title, description, priority, dueDate, project,  notes, chec
 }
 
 function createNote(mainArray, projectList) {
+    console.log('used createNote')
     const btnCreateNote = document.querySelector('.createNote')
     const createNoteDialog = document.querySelector('#createNote-dialog')
     const btnSend = createNoteDialog.querySelector('#sendNoteData')
@@ -55,8 +56,7 @@ function createNote(mainArray, projectList) {
         const todoTitle = createNoteDialog.querySelector('.name-choice input').value
         const todoDesc = createNoteDialog.querySelector('.description-choice input').value
         const todoPriority = createNoteDialog.querySelector('.priority-choice select').value
-        const tempDueDate = createNoteDialog.querySelector('.dueDate-choice input').value
-        const todoDueDate = formatDate(tempDueDate)
+        const todoDueDate = createNoteDialog.querySelector('.dueDate-choice input').value
         const todoProject = createNoteDialog.querySelector('.project-choice select').value
         const todoNote = createNoteDialog.querySelector('textarea').value
         const rowData = tableItems.querySelectorAll('td')
@@ -69,8 +69,8 @@ function createNote(mainArray, projectList) {
             alert('Missing data')
         } else {
             const allData = [todoTitle, todoDesc, todoPriority, todoDueDate, todoProject, todoNote, checklistData]
-            createTODO(...allData, mainArray)
-            renderAll(mainArray)
+            const newTODO = createTODO(...allData, mainArray)
+            createCard(newTODO, mainArray, projectList)
             createNoteDialog.querySelector('form').reset()
             createNoteDialog.querySelector('tbody').innerHTML = ""
             createNoteDialog.close()
@@ -105,11 +105,6 @@ function sideButtons(mainArray, projectList){
 
 
 /* Auxiliary functions */
-
-function formatDate(inputDate) {
-    const [year, month, day] = inputDate.split('-');
-    return `${day}/${month}/${year}`;
-}
 
 function updateProjectList(htmltag, projectList, parameter = false){
     if(parameter){

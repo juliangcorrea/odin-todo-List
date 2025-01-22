@@ -1,19 +1,23 @@
-import { changePriorityColor, addSlider, deleteCard } from "./editNote"
+import { changePriorityColor, addSlider, deleteCard, editCard } from "./editNote"
 
 /* Main Functions */
 
-function createCard(object, mainArray){
+function createCard(object, mainArray, projectList){
+    console.log('used createCard')
     const noteContainer = document.querySelector('.notes-container')
     const cardTemplate = document.getElementById('card').content
     const fragment = document.createDocumentFragment()
     cardTemplate.querySelector('.todo-card h1').textContent = object.title
     cardTemplate.querySelector('.todo-card h2').textContent = object.description
     cardTemplate.querySelector('.todo-card h3').textContent = object.priority
-    cardTemplate.querySelector('.todo-card h4').textContent = object.dueDate
+    cardTemplate.querySelector('.todo-card h4').textContent = formatDate(object.dueDate)
     cardTemplate.querySelector('.todo-card h5').textContent = object.project
     const cloneNode = cardTemplate.cloneNode(true)
     const btnDelete = cloneNode.querySelector('.removeCard')
+    const btnEdit = cloneNode.querySelector('.editCard')
+    addSlider(cloneNode)
     btnDelete.dataset.id = object.id
+    btnEdit.dataset.id = object.id
     if(object.notes){
        cloneNode.querySelector('.todo-card .body p').lastChild.textContent = object.notes
     } else {
@@ -40,23 +44,32 @@ function createCard(object, mainArray){
     fragment.appendChild(cloneNode)
     noteContainer.appendChild(fragment)
     changePriorityColor()
-    addSlider()
     deleteCard(mainArray)
+    editCard(mainArray, projectList)
 }
 
-function renderByFilter(filterCategory, filterName, mainArray){
+function renderByFilter(filterCategory, filterName, mainArray, projectList){
     const noteContainer = document.querySelector('.notes-container')
     noteContainer.innerHTML = ''
     const listBy = mainArray.filter(item => item[filterCategory] == filterName)
-    renderAll(listBy)
+    renderAll(listBy, projectList)
 }
 
-function renderAll(mainArray){
+function renderAll(mainArray, projectList){
+    console.log('used renderAll')
     const noteContainer = document.querySelector('.notes-container')
     noteContainer.innerHTML = ''
     mainArray.forEach(element => {
-        createCard(element, mainArray)
+        createCard(element, mainArray, projectList)
     });
 }
 
-export {renderByFilter, renderAll}
+
+/* Auxiliary Functions */
+
+function formatDate(inputDate) {
+    const [year, month, day] = inputDate.split('-');
+    return `${day}/${month}/${year}`;
+}
+
+export {renderByFilter, renderAll, createCard}
