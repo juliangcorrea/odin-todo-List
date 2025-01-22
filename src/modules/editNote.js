@@ -43,23 +43,16 @@ function deleteCard(mainArray){
     })
 }
 
-function editCard(mainArray, projectList){
-    const editCards = document.querySelectorAll('.todo-card .editCard')
+
+function editCardInit(){
     const editDialog = document.querySelector('#editNote-dialog')
     const checklistTable = editDialog.querySelector('.checklist-choice-part2')
     const tableItems = checklistTable.querySelector('tbody')
     const btnAddItem = editDialog.querySelector('#addChecklistItem')
     const btnDeleteItem = editDialog.querySelector('#deleteChecklistItem')
-    editCards.forEach(element => {
-        element.addEventListener('click', () => {
-            const elementToEdit = mainArray.filter(item => item.id == element.dataset.id )[0]
-            editCardInfo(elementToEdit, mainArray, projectList)
-            editDialog.showModal()
-        })
-    })
     btnAddItem.addEventListener('click', (e) => {
         e.preventDefault()
-        let userInput = editNoteDialog.querySelector('#newChecklistItem')
+        let userInput = editDialog.querySelector('#newChecklistItem')
         if(userInput.value){
             const newRow = document.createElement('tr')
             const newData = document.createElement('td')
@@ -71,11 +64,23 @@ function editCard(mainArray, projectList){
         userInput.textContent = ""
     })
     btnDeleteItem.addEventListener('click', (e) => {
-        e.preventDefault()
-        const allRows = tableItems.querySelectorAll('tr')
-        if(allRows.length != 0){
-            allRows[allRows.length -1].remove()
+        e.preventDefault();
+        const allRows = tableItems.querySelectorAll('tr');
+        if (allRows.length !== 0) {
+          allRows[allRows.length - 1].remove();
         }
+    })
+}
+
+function editCard(mainArray, projectList){
+    const editCards = document.querySelectorAll('.todo-card .editCard')
+    const editDialog = document.querySelector('#editNote-dialog')
+    editCards.forEach(element => {
+        element.addEventListener('click', () => {
+            const elementToEdit = mainArray.filter(item => item.id == element.dataset.id )[0]
+            editCardInfo(elementToEdit, mainArray, projectList)
+            editDialog.showModal()
+        })
     })
 }
 
@@ -131,4 +136,4 @@ function editCardInfo(object, mainArray, projectList, id){
     })
 }
 
-export  { changePriorityColor, addSlider, deleteCard, editCard }
+export  { changePriorityColor, addSlider, deleteCard, editCard, editCardInit }

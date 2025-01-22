@@ -1,3 +1,4 @@
+import { editCardInit } from "./editNote"
 import { renderAll, createCard } from "./renderNote"
 
 /* Main Functions */
@@ -19,7 +20,6 @@ function createTODO(title, description, priority, dueDate, project,  notes, chec
 }
 
 function createNote(mainArray, projectList) {
-    console.log('used createNote')
     const btnCreateNote = document.querySelector('.createNote')
     const createNoteDialog = document.querySelector('#createNote-dialog')
     const btnSend = createNoteDialog.querySelector('#sendNoteData')
@@ -101,6 +101,7 @@ function createProject(projectList){
 function sideButtons(mainArray, projectList){
     createNote(mainArray, projectList)
     createProject(projectList)
+    editCardInit()
 }
 
 

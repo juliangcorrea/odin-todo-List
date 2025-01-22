@@ -3,7 +3,6 @@ import { changePriorityColor, addSlider, deleteCard, editCard } from "./editNote
 /* Main Functions */
 
 function createCard(object, mainArray, projectList){
-    console.log('used createCard')
     const noteContainer = document.querySelector('.notes-container')
     const cardTemplate = document.getElementById('card').content
     const fragment = document.createDocumentFragment()
@@ -56,7 +55,6 @@ function renderByFilter(filterCategory, filterName, mainArray, projectList){
 }
 
 function renderAll(mainArray, projectList){
-    console.log('used renderAll')
     const noteContainer = document.querySelector('.notes-container')
     noteContainer.innerHTML = ''
     mainArray.forEach(element => {
