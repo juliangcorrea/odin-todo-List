@@ -1,4 +1,5 @@
 import { updateProjectList } from "./createNote"
+import { renderAll } from "./renderNote"
 
 function changePriorityColor(){
     const allCards = document.querySelectorAll('.todo-card')
@@ -47,21 +48,20 @@ function editCard(mainArray, projectList){
     const editDialog = document.querySelector('#editNote-dialog')
     editCards.forEach(element => {
         element.addEventListener('click', () => {
-            const elementToEdit = mainArray.filter(item => item.id == element.dataset.id )[0]
-            editCardInfo(elementToEdit, mainArray, projectList)
             editDialog.showModal()
         })
+        const elementToEdit = mainArray.filter(item => item.id == element.dataset.id )[0]
+        editCardInfo(elementToEdit, mainArray, projectList)
     })
 }
 
-function editCardInfo(object, mainArray, projectList){
+function editCardInfo(object, mainArray, projectList, id){
     const editNoteDialog = document.querySelector('#editNote-dialog')
     const btnSend = editNoteDialog.querySelector('#sendEditData')
     const btnAddItem = editNoteDialog.querySelector('#addChecklistItem')
     const btnDeleteItem = editNoteDialog.querySelector('#deleteChecklistItem')
     const checklistTable = editNoteDialog.querySelector('.checklist-choice-part2')
     const tableItems = checklistTable.querySelector('tbody')
-
     const editProject = editNoteDialog.querySelector('#project-of-TODO')
     updateProjectList(editProject, projectList)
     const chosenProject = editProject.querySelector(`option[value="${object.project}"]`)
@@ -75,10 +75,15 @@ function editCardInfo(object, mainArray, projectList){
     const editDueDate = editNoteDialog.querySelector('.dueDate-choice input')
     editDueDate.value = object.dueDate
     const editNote = editNoteDialog.querySelector('textarea')
-    if(editNote){
-        editNote.value = object.notes
-    }
-
+    editNote.value = object.notes
+    tableItems.innerHTML = ''
+    object.checklist.checklist.forEach(element => {
+        const editRow = document.createElement('tr')
+        const editData = document.createElement('td')
+        editData.textContent = element
+        editRow.appendChild(editData)
+        tableItems.appendChild(editRow)
+    });
     btnAddItem.addEventListener('click', (e) => {
         e.preventDefault()
         let userInput = editNoteDialog.querySelector('#newChecklistItem')
@@ -99,27 +104,28 @@ function editCardInfo(object, mainArray, projectList){
             allRows[allRows.length -1].remove()
         }
     })
-
     btnSend.addEventListener('click', () => {
-        // const rowData = tableItems.querySelectorAll('td')
-        // const rowDataCurated = []
-        // rowData.forEach(element => {
-        //     rowDataCurated.push(element.textContent)
-        // });
-        // const checklistData = {checklist: rowDataCurated}
-
-        // if(!todoTitle.value || !todoDesc.value || !todoDueDate.value){
-        //     alert('Missing data')
-        // } else {
-        //     const allData = [todoTitle, todoDesc, todoPriority, todoDueDate, todoProject, todoNote, checklistData]
-        //     createTODO(...allData, mainArray)
-        //     renderAll(mainArray)
-        //     createNoteDialog.querySelector('form').reset()
-        //     createNoteDialog.querySelector('tbody').innerHTML = ""
-        //     createNoteDialog.close()
-        // }
-
-        editNoteDialog.close()
+        const todoTitle = editNoteDialog.querySelector('.name-choice input').value
+        const todoDesc = editNoteDialog.querySelector('.description-choice input').value
+        const todoPriority = editNoteDialog.querySelector('.priority-choice select').value
+        const todoDueDate = editNoteDialog.querySelector('.dueDate-choice input').value
+        const todoProject = editNoteDialog.querySelector('.project-choice select').value
+        const todoNote = editNoteDialog.querySelector('textarea').value
+        const rowData = tableItems.querySelectorAll('td')
+        const rowDataCurated = []
+        rowData.forEach(element => {
+            rowDataCurated.push(element.textContent)
+        });
+        const checklistData = {checklist: rowDataCurated}
+        if(!todoTitle || !todoDesc || !todoDueDate){
+            alert('Missing data')
+        } else { 
+            const id = object.id
+            const objectIndex = mainArray.findIndex(item => item.id == id)
+            mainArray[objectIndex] = {...mainArray[objectIndex], title: todoTitle, description:todoDesc, priority:todoPriority, dueDate:todoDueDate, project:todoProject,  notes:todoNote, checklist:checklistData}
+            renderAll(mainArray, projectList)
+            editNoteDialog.close()
+        }
     })
 }
 
