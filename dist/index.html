@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="main.js"></script></head>
+<body>
+    <!-- main content  -->
+    <div class="grid-container">
+        <header>
+            <nav>
+                <div class="brand">
+                    <h1 class="title">Odin Project TODO APP</h1>
+                    <img src="https://play-lh.googleusercontent.com/wRotdGcsc2JwefLMShlLf0KtbLGbF1u3sDm95mxM-QHLx4HBW93pqVHmJblxRll8Qw" alt="" class="logo">
+                </div>
+                <div class="search-options">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>magnify</title><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+                    <button class="allNotes">All notes</button>
+                    <button class="priorities">Priority</button>
+                    <button class="date dateToday" data-date="today">Today</button>
+                    <button class="date dateWeek" data-date="week">This week</button>
+                    <form action="" class="projectSearch">
+                        <label for="searchProject"></label>
+                        <select name="searchProject" id="searchProject"></select>
+                        <button class="btnProject">By project</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <aside>
+            <div class="btns-container">
+                <button class="createNote">Create TODO</button>
+                <button class="createProject">Create Project</button>
+            </div>
+        </aside>
+        <main>
+            <div class="notes-container">
+            </div>
+        </main>
+        <footer>
+            <div class="copyright">
+                <h1>Copyright &copy All rights reserved</h1>
+            </div>
+        </footer>
+    </div>
+
+    <!-- background content -->
+    <div class="overlay" id="overlay"></div>
+    
+    <dialog id="priority-dialog">
+        <div class="dialog-container">
+            <h3>Choose a priority to search:</h3>
+            <form action="">
+                <label><input type="radio" name="choice" value="Low">Low</label>
+                <label><input type="radio" name="choice" value="Medium">Medium</label>
+                <label><input type="radio" name="choice" value="High">High</label>
+            </form>
+            <button id="prioritySearch">Search</button>
+        </div>
+    </dialog>
+
+    <dialog id="createProject-dialog">
+        <div class="dialog-container">
+            <h3>Create a new Project for your TODO's</h3>
+            <form action="">
+                <div class="newProject-choice">
+                    <label for="newProject">Choose a new Project</label>
+                    <input type="text" name="newProject">
+                </div>
+            </form>
+            <button id="createNewProject">Create new Project</button>
+        </div>
+    </dialog>
+
+    <dialog id="createNote-dialog">
+        <div class="dialog-container">
+            <form action="" id="createNoteForm">
+                <h1>Create your TODO list</h1>
+                <div class="main-data">
+                    <div class="name-choice">
+                        <label for="title">Name of TODO:</label>
+                        <input type="text" name="title">
+                    </div>
+                    <div class="description-choice">
+                        <label for="description">Description of TODO:</label>
+                        <input type="text" name="description">
+                    </div>
+                    <div class="priority-choice">
+                        <label for="priority">Priority of TODO: </label>
+                        <select name="priority" id="">
+                            <option value="Low" selected>Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <div class="dueDate-choice">
+                        <label for="">Date of TODO:</label>
+                        <input type="date" name="dueDate" id="">
+                    </div>
+                    <div class="project-choice">
+                        <label for="project">Project of TODO: </label>
+                        <select name="project" id="project-of-TODO"></select>
+                    </div>
+                </div>
+                <div class="secondary-data">
+                    <div class="notes-choice">
+                        <label for="">Notes of TODO: </label>
+                        <textarea rows="6" cols="30" name="notes" id="note-of-TODO"></textarea>
+                    </div>
+                    <div class="checklist-choice-part1">
+                        <label for="">Checklist of TODO: </label>
+                        <p>--Add items for the TODO checklist--</p>
+                        <input type="text" placeholder="add item to checklist" id="newChecklistItem">
+                        <div class="choice-btns">
+                            <button id="addChecklistItem" class="add">Add item</button>
+                            <button id="deleteChecklistItem" class="remove">Delete item</button>
+                        </div>
+                        </div>
+                    <div class="checklist-choice-part2">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Checklist Items</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+            <button id="sendNoteData">Create Note</button>
+        </div>
+    </dialog>
+
+    <dialog id="removeProject-dialog">
+        <div class="dialog-container">
+            <h3>Remove Project</h3>
+            <form action="">
+                <label for="removeProjectList">Choose a project to remove</label>
+                <select name="removeProject" id="removeProjectList"></select>
+            </form>
+            <button id="removeProject">Remove Project</button>
+        </div>
+    </dialog>
+
+    <dialog id="editNote-dialog">
+        <div class="dialog-container">
+            <form action="" id="editNoteForm">
+                <h1>Edit your TODO</h1>
+                <div class="main-data">
+                    <div class="name-choice">
+                        <label for="title">Name of TODO:</label>
+                        <input type="text" name="title">
+                    </div>
+                    <div class="description-choice">
+                        <label for="description">Description of TODO:</label>
+                        <input type="text" name="description">
+                    </div>
+                    <div class="priority-choice">
+                        <label for="priority">Priority of TODO: </label>
+                        <select name="priority" id="">
+                            <option value="Low" selected>Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <div class="dueDate-choice">
+                        <label for="">Date of TODO:</label>
+                        <input type="date" name="dueDate" id="">
+                    </div>
+                    <div class="project-choice">
+                        <label for="project">Project of TODO: </label>
+                        <select name="project" id="project-of-TODO"></select>
+                    </div>
+                </div>
+                <div class="secondary-data">
+                    <div class="notes-choice">
+                        <label for="">Notes of TODO: </label>
+                        <textarea rows="6" cols="30" name="notes" id="note-of-TODO"></textarea>
+                    </div>
+                    <div class="checklist-choice-part1">
+                        <label for="">Checklist of TODO: </label>
+                        <p>--Add items for the TODO checklist--</p>
+                        <input type="text" placeholder="add item to checklist" id="newChecklistItem">
+                        <div class="choice-btns">
+                            <button id="addChecklistItem" class="add">Add item</button>
+                            <button id="deleteChecklistItem" class="remove">Delete item</button>
+                        </div>
+                        </div>
+                    <div class="checklist-choice-part2">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Checklist Items</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+            <button id="sendEditData">Edit Note</button>
+        </div>
+    </dialog>
+
+    <!-- template content  -->
+    <template id="card">
+        <div class="todo-card">
+            <div class="head">
+                <h1>Title of TODO</h1>
+                <div class="options">
+                    <button class="icon-btn editCard"><svg class="edit card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg></button>
+                    <button class="icon-btn removeCard"><svg class="delete card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" /></svg></button>
+                    <button class="icon-btn extendCard"><svg class="extend card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-down</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></button>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="body inner">
+                    <h2>Description of TODO</h2>
+                    <h3>Priority of TODO</h3>
+                    <h4>Date of TODO</h4>
+                    <h5>Project of TODO</h5>
+                    <p><Span><strong>Notes: </strong></Span>Notes for TODO</p>
+                    <form action="" class="checklist-TODO">
+                        <fieldset>
+                            <legend>Checklist</legend>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </template>
+</body>
+</html>
