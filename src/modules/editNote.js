@@ -43,7 +43,6 @@ function deleteCard(mainArray){
     })
 }
 
-
 function editCardInit(){
     const editDialog = document.querySelector('#editNote-dialog')
     const checklistTable = editDialog.querySelector('.checklist-choice-part2')
@@ -130,10 +129,20 @@ function editCardInfo(object, mainArray, projectList, id){
             const id = object.id
             const objectIndex = mainArray.findIndex(item => item.id == id)
             mainArray[objectIndex] = {...mainArray[objectIndex], title: todoTitle, description:todoDesc, priority:todoPriority, dueDate:todoDueDate, project:todoProject,  notes:todoNote, checklist:checklistData}
+            saveToLocalStorage(mainArray)
             renderAll(mainArray, projectList)
             editNoteDialog.close()
         }
     })
 }
 
-export  { changePriorityColor, addSlider, deleteCard, editCard, editCardInit }
+function saveToLocalStorage(mainArray, projectList = false) {
+    if(mainArray){
+        localStorage.setItem('noteList', JSON.stringify(mainArray))
+    }
+    if(projectList){
+        localStorage.setItem('projects', JSON.stringify(projectList))
+    }
+}
+
+export  { changePriorityColor, addSlider, deleteCard, editCard, editCardInit, saveToLocalStorage }

@@ -1,5 +1,5 @@
-import { editCardInit } from "./editNote"
-import { renderAll, createCard } from "./renderNote"
+import { editCardInit, saveToLocalStorage } from "./editNote"
+import { createCard } from "./renderNote"
 
 /* Main Functions */
 
@@ -16,6 +16,7 @@ function createTODO(title, description, priority, dueDate, project,  notes, chec
         id
     }
     mainArray.push(newTODO)
+    saveToLocalStorage(mainArray)
     return newTODO
 }
 
@@ -90,6 +91,7 @@ function createProject(projectList){
         const newProject = createProjectDialog.querySelector('input')
         if(newProject){
             projectList.push(newProject.value.toLowerCase())
+            saveToLocalStorage(false, projectList)
             updateProjectList(selectProject, projectList, true)
             newProject.textContent = ''
             newProject.value = ''
